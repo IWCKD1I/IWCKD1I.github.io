@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yassine Derbel — AI Engineer</title>
+<meta name="description" content="Yassine Derbel — freelance AI engineer building RAG systems, LLM agents, small language models and computer-vision products.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0a; --bg2:#141412; --ink:#f0ede5; --mute:#8f8a7f; --line:#262522;
+  --acc:#ff5a2b; --acc2:#8b97ff; --ok:#4ade80; --card:#11110f;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#f3f0e8; --bg2:#e9e4d8; --ink:#14130f; --mute:#625e55; --line:#d3ccbd;
+    --acc:#ff4d1c; --acc2:#2a46ff; --ok:#15803d; --card:#faf8f3;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#f3f0e8; --bg2:#e9e4d8; --ink:#14130f; --mute:#625e55; --line:#d3ccbd;
+  --acc:#ff4d1c; --acc2:#2a46ff; --ok:#15803d; --card:#faf8f3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.55 "Space Grotesk",system-ui,sans-serif;overflow-x:hidden;transition:background .4s,color .4s}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+::selection{background:var(--acc);color:#fff}
+
+/* grain */
+body::after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+/* loader */
+#loader{position:fixed;inset:0;z-index:200;background:var(--acc);color:#0b0b0a;display:flex;align-items:flex-end;justify-content:space-between;padding:28px;clip-path:inset(0 0 0 0)}
+#loader .cnt{font-size:clamp(80px,18vw,240px);font-weight:700;letter-spacing:-.06em;line-height:.8}
+#loader .lbl{font-size:13px;max-width:200px;text-align:right}
+.no-js #loader{display:none}
+
+/* cursor */
+.cur,.cur-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:150;border-radius:50%;transform:translate(-50%,-50%)}
+.cur{width:6px;height:6px;background:var(--acc)}
+.cur-ring{width:38px;height:38px;border:1px solid var(--ink);display:grid;place-items:center;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),background .3s,border-color .3s;mix-blend-mode:difference}
+.cur-ring span{font-size:11px;color:#000;opacity:0;transition:opacity .2s;font-family:"JetBrains Mono",monospace;letter-spacing:.05em}
+.cur-ring.big{width:92px;height:92px;background:#fff;border-color:#fff}
+.cur-ring.big span{opacity:1}
+.cur-ring.link{width:60px;height:60px;background:#fff;border-color:#fff}
+@media (pointer:coarse){.cur,.cur-ring{display:none}}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+nav.hide{transform:translateY(-110%)}
+nav .logo{font-weight:700;letter-spacing:-.02em;font-size:18px}
+nav .logo span{color:var(--acc)}
+nav .links{display:flex;gap:6px;align-items:center;padding:6px;border:1px solid var(--line);border-radius:99px;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(12px)}
+nav .links a{font-size:14px;padding:7px 14px;border-radius:99px;color:var(--mute);transition:color .2s,background .2s}
+nav .links a:hover{color:var(--ink);background:var(--bg2)}
+nav .links a.hire{background:var(--ink);color:var(--bg)}
+#theme{background:none;border:0;width:34px;height:34px;border-radius:99px;cursor:pointer;font-size:15px}
+#theme:hover{background:var(--bg2)}
+@media (max-width:760px){nav{padding:14px 16px}nav .links a.opt{display:none}}
+
+/* hero */
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden}
+#particles{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+.hero-ui{position:absolute;left:0;right:0;bottom:0;padding:0 28px 34px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;pointer-events:none}
+.hero-ui>*{pointer-events:auto}
+.hero-ui .tag{max-width:520px;font-size:clamp(17px,2vw,21px)}
+.hero-ui .tag em{font-family:"Instrument Serif",serif;color:var(--acc);font-size:1.2em}
+.hero-top{position:absolute;top:96px;left:28px;right:28px;display:flex;justify-content:space-between;font-size:12.5px;color:var(--mute);pointer-events:none}
+.status{display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+.hint{font-size:12px;color:var(--mute)}
+.scrolldown{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--mute)}
+.scrolldown i{display:block;width:1px;height:44px;background:var(--line);position:relative;overflow:hidden}
+.scrolldown i::after{content:"";position:absolute;inset:0;background:var(--acc);animation:drip 1.8s cubic-bezier(.7,0,.3,1) infinite}
+@keyframes drip{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
+@media (max-width:600px){.hero-ui{padding:0 16px 24px}.hero-top{left:16px;right:16px;top:80px}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:99px;font-weight:500;font-size:15px;border:1px solid var(--ink);position:relative;overflow:hidden;isolation:isolate;transition:color .35s}
+.btn::before{content:"";position:absolute;inset:0;background:var(--acc);border-radius:inherit;transform:translateY(101%);transition:transform .45s cubic-bezier(.7,0,.2,1);z-index:-1}
+.btn:hover{color:#fff;border-color:var(--acc)}
+.btn:hover::before{transform:none}
+.btn.solid{background:var(--ink);color:var(--bg)}
+
+/* marquee */
+.marquee{overflow:hidden;white-space:nowrap;border-block:1px solid var(--line);padding:22px 0}
+.marquee .track{display:inline-flex;will-change:transform}
+.marquee span{font-size:clamp(34px,5vw,64px);font-weight:700;letter-spacing:-.04em;padding-right:42px}
+.marquee span:nth-child(even){font-family:"Instrument Serif",serif;font-weight:400;font-style:italic;color:var(--acc)}
+.marquee span::after{content:"✦";font-size:.4em;vertical-align:middle;margin-left:42px;color:var(--mute);font-style:normal}
+
+section{padding:130px 0;position:relative}
+.kicker{font-size:12.5px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.kicker::before{content:"";width:28px;height:1px;background:var(--acc)}
+h2{font-size:clamp(42px,7vw,104px);line-height:.92;letter-spacing:-.045em;font-weight:700;max-width:1000px}
+h2 .serif{color:var(--acc);letter-spacing:-.02em}
+.split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.split .w>span{display:inline-block}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:60px;align-items:start}
+.about p.lead{font-size:clamp(22px,2.6vw,32px);line-height:1.25;letter-spacing:-.02em}
+.about p.lead .hl{color:var(--mute)}
+.svc{display:grid;gap:0;border-top:1px solid var(--line)}
+.svc div{display:flex;justify-content:space-between;gap:20px;padding:20px 0;border-bottom:1px solid var(--line);transition:padding .4s cubic-bezier(.2,.8,.2,1),color .3s}
+.svc div:hover{padding-left:14px;color:var(--acc)}
+.svc h3{font-size:21px;font-weight:500;letter-spacing:-.02em}
+.svc span{font-size:13px;color:var(--mute);text-align:right;max-width:250px}
+@media (max-width:860px){.about{grid-template-columns:1fr;gap:40px}}
+
+/* horizontal work */
+#work{padding:0}
+.work-head{padding:130px 0 50px}
+.hwrap{overflow:hidden}
+.htrack{display:flex;gap:24px;padding:0 28px 60px;width:max-content}
+.panel{width:min(82vw,1020px);height:min(76vh,640px);background:var(--card);border:1px solid var(--line);border-radius:28px;padding:38px;display:grid;grid-template-columns:1.05fr 1fr;gap:38px;position:relative;overflow:hidden;flex-shrink:0}
+.panel .idx{font-size:13px;color:var(--mute);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.panel .pill{padding:4px 10px;border:1px solid var(--line);border-radius:99px;font-size:11.5px}
+.panel .pill.ok{border-color:var(--ok);color:var(--ok)}
+.panel .pill.acc{border-color:var(--acc);color:var(--acc)}
+.panel h3{font-size:clamp(34px,4.4vw,62px);letter-spacing:-.045em;line-height:.95;margin:26px 0 12px;font-weight:700}
+.panel .one{font-size:18px;margin-bottom:22px}
+.panel ul{list-style:none;display:grid;gap:10px;font-size:14.5px;color:var(--mute)}
+.panel li{padding-left:20px;position:relative}
+.panel li::before{content:"→";position:absolute;left:0;color:var(--acc)}
+.panel li b{color:var(--ink);font-weight:500}
+.panel .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px;font-size:11.5px}
+.panel .stack span{background:var(--bg2);padding:5px 9px;border-radius:6px}
+.panel .metric{position:absolute;right:38px;top:34px;text-align:right}
+.panel .metric b{display:block;font-size:44px;letter-spacing:-.05em;line-height:1;color:var(--acc)}
+.panel .metric small{font-size:11.5px;color:var(--mute)}
+.panel .left{display:flex;flex-direction:column;min-width:0}
+.panel .left .stack{margin-top:auto;padding-top:22px}
+.viz{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:22px;font-size:12.5px;line-height:1.8;align-self:end;overflow:hidden;position:relative;min-height:62%}
+.viz .u{color:var(--acc2)}.viz .t{color:var(--acc)}.viz .o{color:var(--ok)}.viz .c{color:var(--mute)}
+.panel a.cover{position:absolute;inset:0;z-index:3}
+@media (max-width:900px){
+  .htrack{flex-direction:column;width:auto;padding:0 16px 40px}
+  .panel{width:100%;height:auto;grid-template-columns:1fr;padding:26px;gap:26px}
+  .panel .metric{position:static;text-align:left;margin-top:14px}
+  .viz{min-height:0}
+}
+
+/* viz: rag flow */
+.flow{display:grid;gap:10px}
+.flow div{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;opacity:.35;transition:opacity .4s,border-color .4s,transform .4s}
+.flow div.on{opacity:1;border-color:var(--acc);transform:translateX(6px)}
+.flow div b{color:var(--acc);font-weight:600;width:22px}
+/* viz: pipeline */
+.pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pipe div{aspect-ratio:1;border:1px dashed var(--line);border-radius:12px;display:grid;place-items:center;text-align:center;font-size:11px;opacity:.3;transition:all .35s}
+.pipe div.on{opacity:1;border-style:solid;border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,transparent)}
+.pipe div em{display:block;font-style:normal;font-size:20px}
+/* viz: coverage */
+.cov{display:grid;place-items:center;gap:16px;padding:14px 0}
+.ring{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--acc) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center;transition:--p .1s}
+.ring div{width:128px;height:128px;border-radius:50%;background:var(--bg);display:grid;place-items:center;text-align:center}
+.ring b{font-size:32px;letter-spacing:-.04em;display:block;line-height:1}
+.cov .states{display:flex;gap:6px;font-size:11px}
+.cov .states span{padding:4px 9px;border-radius:99px;border:1px solid var(--line);transition:all .3s}
+.cov .states span.on{background:var(--acc);border-color:var(--acc);color:#fff}
+/* viz: beemo */
+.face{display:grid;place-items:center;gap:14px;padding:10px 0}
+.face svg{width:150px;height:150px}
+.emos{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;font-size:11px}
+.emos span{padding:4px 9px;border:1px solid var(--line);border-radius:99px;transition:all .3s}
+.emos span.on{border-color:var(--acc);color:var(--acc)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;margin-top:60px;border-top:1px solid var(--line)}
+.stat{padding:30px 24px 30px 0;border-bottom:1px solid var(--line)}
+.stat .txt{font-size:clamp(60px,8vw,112px);letter-spacing:-.06em;line-height:.9;font-weight:700}
+.stat .txt em{font-family:"Instrument Serif",serif;font-weight:400;color:var(--acc)}
+.stat .num{font-size:clamp(60px,8vw,112px);letter-spacing:-.06em;line-height:.9;font-weight:700}
+.stat .num em{font-family:"Instrument Serif",serif;font-weight:400;color:var(--acc)}
+.stat p{color:var(--mute);margin-top:12px;font-size:15px;max-width:240px}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:50px}
+.quote{border:1px solid var(--line);border-radius:22px;padding:30px;background:var(--card)}
+.quote p{font-family:"Instrument Serif",serif;font-size:clamp(22px,2.4vw,30px);line-height:1.2;letter-spacing:-.01em}
+.quote small{display:block;margin-top:18px;font-size:12.5px;color:var(--mute)}
+.quote small b{color:var(--acc);font-weight:400}
+@media (max-width:760px){.quotes{grid-template-columns:1fr}}
+.stats-src{margin-top:22px;font-size:12.5px;color:var(--mute)}
+.stats-src a{color:var(--acc)}
+
+/* experience */
+.xp{position:relative;margin-top:70px;padding-left:46px}
+.xp .rail{position:absolute;left:8px;top:6px;bottom:0;width:2px;background:var(--line)}
+.xp .rail i{position:absolute;inset:0;background:var(--acc);transform-origin:top;transform:scaleY(var(--s,1))}
+.job{position:relative;padding-bottom:64px;display:grid;grid-template-columns:200px 1fr;gap:30px}
+.job::before{content:"";position:absolute;left:-44px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--acc)}
+.job.now::before{background:var(--acc);box-shadow:0 0 0 6px color-mix(in srgb,var(--acc) 25%,transparent)}
+.job .when{font-size:13px;color:var(--mute);padding-top:6px}
+.job h3{font-size:clamp(24px,3vw,34px);letter-spacing:-.03em;font-weight:700;line-height:1.1}
+.job h3 .serif{color:var(--mute);font-size:.9em}
+.job .co{font-size:14px;color:var(--acc);margin:6px 0 14px}
+.job ul{list-style:none;display:grid;gap:9px;color:var(--mute);font-size:15.5px;max-width:720px}
+.job li{padding-left:18px;position:relative}
+.job li::before{content:"";position:absolute;left:0;top:.7em;width:7px;height:1px;background:var(--acc)}
+.job li b{color:var(--ink);font-weight:500}
+@media (max-width:760px){.job{grid-template-columns:1fr;gap:6px}.xp{padding-left:34px}.job::before{left:-32px}}
+
+/* chat */
+.chat-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;margin-top:60px;align-items:start}
+.chat-grid p{color:var(--mute);font-size:18px;max-width:380px}
+.chatbox{border:1px solid var(--line);border-radius:24px;background:var(--card);overflow:hidden}
+.chat-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--mute)}
+#log{height:340px;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:86%;padding:11px 15px;border-radius:16px;font-size:15px;line-height:1.5;animation:pop .35s cubic-bezier(.2,.8,.2,1)}
+.msg.bot{background:var(--bg2);border-bottom-left-radius:4px}
+.msg.me{align-self:flex-end;background:var(--ink);color:var(--bg);border-bottom-right-radius:4px}
+.msg .tool{display:block;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--acc);margin-bottom:6px}
+.msg.typing{color:var(--mute);font-family:"JetBrains Mono",monospace;font-size:13px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 14px}
+.chips button{font-size:13px;background:none;border:1px solid var(--line);padding:6px 12px;border-radius:99px;cursor:pointer;transition:all .2s}
+.chips button:hover{border-color:var(--acc);color:var(--acc)}
+form.ask{display:flex;border-top:1px solid var(--line)}
+form.ask input{flex:1;min-width:0;background:none;border:0;padding:16px 18px;font:inherit;color:var(--ink);outline:none}
+form.ask button{background:var(--acc);color:#fff;border:0;padding:0 24px;font-weight:500;cursor:pointer}
+@media (max-width:860px){.chat-grid{grid-template-columns:1fr;gap:30px}}
+
+/* contact */
+.contact{padding:150px 0 40px;text-align:center;overflow:hidden}
+.contact .huge{font-size:clamp(70px,17vw,280px);font-weight:700;letter-spacing:-.065em;line-height:.82;white-space:nowrap}
+.contact .huge .serif{color:var(--acc);letter-spacing:-.03em}
+.contact p{color:var(--mute);max-width:560px;margin:40px auto 0;font-size:19px}
+.contact .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.socials{display:flex;justify-content:center;gap:28px;margin-top:60px;font-size:14px;flex-wrap:wrap}
+.socials a{position:relative;color:var(--mute);transition:color .2s}
+.socials a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.7,0,.2,1)}
+.socials a:hover{color:var(--ink)}
+.socials a:hover::after{transform:scaleX(1);transform-origin:left}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:30px 28px 40px;font-size:12.5px;color:var(--mute);border-top:1px solid var(--line)}
+
+@media (max-width:600px){body{font-size:16px}.wrap{padding:0 16px}section{padding:90px 0}.work-head{padding:90px 0 36px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js');</script>
+
+<div id="loader" aria-hidden="true"><div class="cnt mono" id="cnt">0</div><div class="lbl mono">Loading model weights…<br>(just kidding, it's a portfolio)</div></div>
+<div class="cur" aria-hidden="true"></div><div class="cur-ring" aria-hidden="true"><span>VIEW</span></div>
+
+<nav id="nav">
+  <a href="#top" class="logo" data-link>yassine<span>.</span>derbel</a>
+  <div class="links">
+    <a class="opt" href="#work" data-link>Work</a>
+    <a class="opt" href="#experience" data-link>Experience</a>
+    <a class="opt" href="#agent" data-link>Ask</a>
+    <a class="hire" href="#contact" data-link>Hire me</a>
+    <button id="theme" aria-label="Toggle colour theme">◐</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <h1 class="sr">Yassine Derbel — Freelance AI Engineer</h1>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="hero-top mono"><span class="status"><span class="dot"></span>Available for freelance · Tunis → worldwide</span><span class="hint">move / click the name ↓</span></div>
+  <div class="hero-ui">
+    <p class="tag">Freelance <em>AI engineer</em> building RAG systems, LLM agents and vision products that run in production — on-prem when it matters.</p>
+    <div class="scrolldown mono"><i></i>scroll</div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
+
+<section id="about">
+  <div class="wrap">
+    <p class="kicker mono">About</p>
+    <h2 class="split">I make AI <span class="serif">useful,</span> not just impressive.</h2>
+    <div class="about">
+      <p class="lead fade">AI engineer with a background in <span class="hl">banking automation, QA tooling and medical vision</span>. I've built an on-prem RAG assistant that cut test-failure analysis to <span class="hl">under 2 minutes</span>, automated core-banking SWIFT flows, and shown that <span class="hl">small language models can match LLMs</span> on real enterprise tasks for a fraction of the compute.</p>
+      <div class="svc fade">
+        <div><h3>RAG & document AI</h3><span class="mono">chunking · embeddings · eval</span></div>
+        <div><h3>LLM agents</h3><span class="mono">tool use · citations · tracing</span></div>
+        <div><h3>Small / on-prem models</h3><span class="mono">SLMs · Ollama · fine-tuning</span></div>
+        <div><h3>Computer vision</h3><span class="mono">YOLOv8 · segmentation · real-time</span></div>
+        <div><h3>Automation & backends</h3><span class="mono">FastAPI · Postgres · CI/CD</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap work-head">
+    <p class="kicker mono">Selected work</p>
+    <h2 class="split">Five builds, <span class="serif">in depth.</span></h2>
+  </div>
+  <div class="hwrap">
+    <div class="htrack" id="htrack">
+
+      <article class="panel" data-cursor="DETAIL">
+        <div class="left">
+          <div class="idx mono"><span>01</span><span class="pill">QA · Enterprise</span><span class="pill">On-prem</span></div>
+          <h3>Qualitest</h3>
+          <p class="one">A RAG assistant that reads a failed automated test and tells engineers why it broke and how to fix it.</p>
+          <ul>
+            <li>Three-phase dataset: <b>human labelling → RAG enhancement → AI augmentation</b> over Playwright & Puppeteer failure reports.</li>
+            <li>Test codebase chunked with <b>AST parsing</b>, embedded with nomic-embed and indexed in ChromaDB.</li>
+            <li>Llama 3.2 via Ollama, fully <b>on-premise</b>; FastAPI + Postgres jobs, live dashboard, GitLab & Jenkins integration.</li>
+          </ul>
+          <div class="stack mono"><span>LangChain</span><span>Ollama</span><span>ChromaDB</span><span>FastAPI</span><span>Jenkins</span></div>
+        </div>
+        <div class="metric"><b>&lt;2 min</b><small class="mono">per failure analysis</small></div>
+        <div class="viz mono"><div class="flow" data-cycle>
+          <div><b>01</b>failure report ingested</div>
+          <div><b>02</b>AST chunks retrieved · k=8</div>
+          <div><b>03</b>similar past fixes matched</div>
+          <div><b>04</b>root cause + fix steps</div>
+          <div><b>05</b>engineer feedback → regenerate</div>
+        </div></div>
+      </article>
+
+      <article class="panel" data-cursor="DETAIL">
+        <div class="left">
+          <div class="idx mono"><span>02</span><span class="pill">Construction · AEC</span><span class="pill">Agent</span></div>
+          <h3>Mensura</h3>
+          <p class="one">Chat with DWG/DXF construction drawings — counts, lengths, areas, quantity takeoffs and BoQ reconciliation.</p>
+          <ul>
+            <li>The LLM <b>never does arithmetic</b>: it calls 20+ deterministic geometry tools built on ezdxf, Shapely and Postgres.</li>
+            <li>Every number is <b>cited back to entity handles</b> you can click to highlight on the drawing.</li>
+            <li>8-layer architecture: ingest → normalise → geometry → tools → agent → BoQ → reconcile → UI, traced with Langfuse.</li>
+          </ul>
+          <div class="stack mono"><span>Claude tool use</span><span>ezdxf</span><span>Shapely</span><span>pgvector</span><span>React</span></div>
+        </div>
+        <div class="metric"><b>20+</b><small class="mono">deterministic tools</small></div>
+        <div class="viz mono" data-type>
+          <div><span class="u">user ›</span> how many columns on level 2?</div>
+          <div><span class="t">tool ›</span> list_layers(filter="COL*")</div>
+          <div class="c">  ↳ S-COLS-L2 · 148 entities</div>
+          <div><span class="t">tool ›</span> count_blocks(layer="S-COLS-L2")</div>
+          <div class="c">  ↳ 42 · handles [3A1F, 3A20, …]</div>
+          <div><span class="t">tool ›</span> sum_lengths(layer="A-WALL")</div>
+          <div class="c">  ↳ 1,284.6 m</div>
+          <div><span class="o">agent ›</span> 42 columns, 1,284.6 m of walls <span class="c">[cited]</span></div>
+        </div>
+      </article>
+
+      <article class="panel" data-cursor="GITHUB">
+        <a class="cover" href="https://github.com/IWCKD1I/crime-stories-shorts" target="_blank" rel="noopener" aria-label="Open the Sinister Synthesis repository on GitHub"></a>
+        <div class="left">
+          <div class="idx mono"><span>03</span><span class="pill">Generative video</span><span class="pill ok">Open source</span></div>
+          <h3>Sinister Synthesis</h3>
+          <p class="one">A fully automated studio that turns a story into a published YouTube Short — with zero paid APIs.</p>
+          <ul>
+            <li>Script by <b>Llama 3.1</b> (Ollama), voice by edge-tts / Piper, visuals by <b>SDXL</b>.</li>
+            <li>Ken Burns motion, word-level <b>Whisper</b> captions, FFmpeg compositing.</li>
+            <li>Uploads itself via the YouTube Data API — <b>8 stages, no human in the loop</b>.</li>
+          </ul>
+          <div class="stack mono"><span>Llama 3.1</span><span>SDXL</span><span>Whisper</span><span>FFmpeg</span><span>Python</span></div>
+        </div>
+        <div class="metric"><b>$0</b><small class="mono">API spend per video</small></div>
+        <div class="viz mono"><div class="pipe" data-cycle>
+          <div><span><em>①</em>source</span></div><div><span><em>②</em>script</span></div><div><span><em>③</em>voice</span></div><div><span><em>④</em>visuals</span></div>
+          <div><span><em>⑤</em>motion</span></div><div><span><em>⑥</em>captions</span></div><div><span><em>⑦</em>edit</span></div><div><span><em>⑧</em>upload</span></div>
+        </div></div>
+      </article>
+
+      <article class="panel" data-cursor="DETAIL">
+        <div class="left">
+          <div class="idx mono"><span>04</span><span class="pill">Assistive tech</span><span class="pill">Real-time CV</span></div>
+          <h3>CareGenius</h3>
+          <p class="one">A webcam coach that guides autistic children through putting on their shoes — and shows caregivers their progress.</p>
+          <ul>
+            <li>Two <b>YOLOv8-seg</b> models (foot, shoe); coverage from <b>pixel-level mask overlap</b>, not bounding boxes.</li>
+            <li>Gemini assesses the shoe's state and jumps to the right step; Deepgram voice gives <b>child-friendly prompts</b> and praise.</li>
+            <li>Caregiver dashboard with session analytics and SMS alerts when help is needed.</li>
+          </ul>
+          <div class="stack mono"><span>YOLOv8-seg</span><span>Gemini</span><span>Deepgram</span><span>Supabase</span><span>Node</span></div>
+        </div>
+        <div class="metric"><b>2 fps</b><small class="mono">live mask analysis</small></div>
+        <div class="viz mono"><div class="cov">
+          <div class="ring" id="ring" style="--p:0"><div><span><b id="covn">0%</b><small class="c">foot in shoe</small></span></div></div>
+          <div class="states" id="covs"><span>shoe off</span><span>partial ≥15%</span><span>fully in ≥60%</span></div>
+        </div></div>
+      </article>
+
+      <article class="panel" data-cursor="DETAIL">
+        <div class="left">
+          <div class="idx mono"><span>05</span><span class="pill">Robotics · NLP</span><span class="pill acc">🥇 1st in Africa</span></div>
+          <h3>Beemo</h3>
+          <p class="one">A companion robot that talks with autistic children and reads their emotions in real time.</p>
+          <ul>
+            <li>Conversation model built on <b>LLaMA 3 70B</b> + LangChain, tuned on real therapist–child sessions with Tunisian autism associations.</li>
+            <li>Facial emotion recognition at <b>92% accuracy</b> to adapt the conversation.</li>
+            <li><b>1st place, Africa to Silicon Valley Hackathon</b> · ESPRIT Best AI Project.</li>
+          </ul>
+          <div class="stack mono"><span>LLaMA 3 70B</span><span>LangChain</span><span>CNN</span><span>Robotics</span></div>
+        </div>
+        <div class="metric"><b>#1</b><small class="mono">Africa · ASV Hackathon</small></div>
+        <div class="viz mono"><div class="face">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="12" y="16" width="76" height="66" rx="18" fill="none" stroke="currentColor" stroke-width="2.5"/><circle id="eyeL" cx="36" cy="44" r="5" fill="var(--acc)"/><circle id="eyeR" cx="64" cy="44" r="5" fill="var(--acc)"/><path id="mouth" d="M36 62 Q50 72 64 62" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round"/><line x1="50" y1="16" x2="50" y2="6" stroke="currentColor" stroke-width="2.5"/><circle cx="50" cy="5" r="3" fill="var(--acc)"/></svg>
+          <div class="emos" id="emos"><span>happy</span><span>calm</span><span>surprised</span><span>sad</span></div>
+        </div></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="wrap">
+    <p class="kicker mono">Upwork track record</p>
+    <h2 class="split">Clients <span class="serif">keep coming back.</span></h2>
+    <div class="stats" id="stats"></div>
+    <div class="quotes">
+      <figure class="quote fade"><p>“Yassine is an amazing developer and an even better person. The project was complex…”</p><small class="mono"><b>★ 5.0</b> · AI image rotation & cropping tool</small></figure>
+      <figure class="quote fade"><p>“He communicated clearly, made changes quickly based on feedback, and showed real dedication to delivering the project well.”</p><small class="mono"><b>★ 5.0</b> · Full-stack AI developer for a GenAI MVP</small></figure>
+    </div>
+    <p class="stats-src mono">Verified on <a href="https://www.upwork.com/freelancers/~01315caa78c6fdadde" target="_blank" rel="noopener">my Upwork profile ↗</a></p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <p class="kicker mono">Experience</p>
+    <h2 class="split">Banks, platforms <span class="serif">& startups.</span></h2>
+    <div class="xp" id="xp">
+      <div class="rail"><i id="railFill"></i></div>
+
+      <div class="job now fade">
+        <span class="when mono">Nov 2026 — now</span>
+        <div><h3>Freelance AI Engineer</h3><p class="co mono">Independent · Upwork & direct</p>
+          <ul><li>Designing and shipping <b>RAG, agentic and computer-vision systems</b> for clients in construction, health, e-commerce and media.</li></ul></div>
+      </div>
+
+      <div class="job fade">
+        <span class="when mono">Jan — Oct 2026</span>
+        <div><h3>Data Science Engineer</h3><p class="co mono">VALUE Digital Services · on mission at BIAT</p>
+          <ul>
+            <li>Built an automation system for <b>Temenos T24 core-banking</b> processes, including a robot that processes <b>SWIFT MT103</b> payment messages, deployed on the bank's internal vSphere.</li>
+            <li>Automated printing and mailing workflows end to end, from Outlook ingestion to batch printing.</li>
+            <li>Led an <b>SLM research project</b> showing small language models can compete with LLMs on targeted enterprise tasks at a fraction of the compute — fully on-premise.</li>
+          </ul></div>
+      </div>
+
+      <div class="job fade">
+        <span class="when mono">Feb — Sep 2025</span>
+        <div><h3>AI Engineer <span class="serif">· end-of-studies</span></h3><p class="co mono">NeoXam</p>
+          <ul>
+            <li>Built <b>Qualitest</b>, an on-prem RAG assistant that diagnoses failed automated tests and recommends fixes — <b>under 2 minutes per report</b>.</li>
+            <li>AST-based code chunking, ChromaDB, Llama 3.2 via Ollama; FastAPI/Postgres backend with GitLab & Jenkins CI integration.</li>
+          </ul></div>
+      </div>
+
+      <div class="job fade">
+        <span class="when mono">Jun — Sep 2024</span>
+        <div><h3>Data Scientist <span class="serif">· intern</span></h3><p class="co mono">Tabaani</p>
+          <ul><li>Built the YouTube scraping and speech-to-text pipeline and Llama 3 activity extraction behind the Middle East's <b>first automated travel-planning chatbot</b>.</li></ul></div>
+      </div>
+
+      <div class="job fade">
+        <span class="when mono">Jun — Aug 2023</span>
+        <div><h3>Computer Vision Engineer <span class="serif">· intern</span></h3><p class="co mono">InTech Solutions</p>
+          <ul><li>OpenCV/CNN pipeline turning ECG scans into tabular data — <b>myocarditis diagnosis from days to seconds</b> — plus a heart-failure prediction model.</li></ul></div>
+      </div>
+
+      <div class="job fade" style="padding-bottom:0">
+        <span class="when mono">2020 — 2025</span>
+        <div><h3>Engineering Degree, AI</h3><p class="co mono">ESPRIT, Tunis</p>
+          <ul><li>Final project: <b>A RAG Approach for Quality Assurance Optimization</b>. Chairman of DeepFlow – AI For All (2023–24).</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="agent">
+  <div class="wrap">
+    <p class="kicker mono">Ask my agent</p>
+    <h2 class="split">Questions? <span class="serif">Ask the bot.</span></h2>
+    <div class="chat-grid">
+      <p class="fade">A tiny agent that knows my work. It runs entirely in your browser — no data leaves the page.</p>
+      <div class="chatbox fade">
+        <div class="chat-head mono"><span>yassine-agent · v2</span><span>local · 0 tokens</span></div>
+        <div id="log" aria-live="polite"></div>
+        <div class="chips" id="chips"></div>
+        <form class="ask" id="ask"><input id="q" placeholder="e.g. Can you build a RAG system for my docs?" autocomplete="off" aria-label="Your question"><button>Send</button></form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <p class="kicker mono" style="justify-content:center">Let's build</p>
+  <div class="huge" id="huge">Got an <span class="serif">idea?</span></div>
+  <p>Tell me what you're trying to automate, understand or create. I'll tell you honestly whether AI is the right tool — and if it is, I'll build it.</p>
+  <div class="ctas">
+    <a class="btn solid magnetic" href="https://www.upwork.com/freelancers/~01315caa78c6fdadde" target="_blank" rel="noopener">Hire me on Upwork →</a>
+    <a class="btn magnetic" id="mail" href="#contact">Email me</a>
+  </div>
+  <div class="socials mono">
+    <a href="https://www.linkedin.com/in/yassine-derbel-39a0b0221/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://github.com/IWCKD1I" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="https://www.upwork.com/freelancers/~01315caa78c6fdadde" target="_blank" rel="noopener">Upwork ↗</a>
+  </div>
+</section>
+
+<footer class="mono"><span>© <span id="yr"></span> Yassine Derbel</span><span>Built by hand · no templates</span><span>Tunis, Tunisia</span></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+// Upwork numbers — edit these. Leave the array empty to hide the section.
+const UPWORK = [
+  { value: 100, suffix: '%', label: 'Job Success Score on Upwork' },
+  { text: 'Top', suffix: ' Rated', label: 'Upwork badge for consistently excellent client results' },
+  { value: 29, suffix: ' jobs', label: 'Won on Upwork — 13 delivered, 16 in progress' },
+];
+
+(() => {
+  const root = document.documentElement;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
+  const hasGsap = !!window.gsap && !!window.ScrollTrigger;
+  const css = v => getComputedStyle(root).getPropertyValue(v).trim();
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // email assembled at runtime so scrapers don't pick it up
+  const mail = document.getElementById('mail');
+  mail.href = 'mailto:' + ['yassine', 'derbel.pro'].join('@');
+
+  // theme
+  try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  document.getElementById('theme').onclick = () => {
+    const light = root.dataset.theme ? root.dataset.theme === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
+    root.dataset.theme = light ? 'dark' : 'light';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  };
+
+  // stats
+  const statsEl = document.getElementById('stats');
+  if (!UPWORK.length) document.getElementById('numbers').remove();
+  else statsEl.innerHTML = UPWORK.map(s => s.text
+    ? `<div class="stat fade"><div class="txt">${s.text}<em>${s.suffix || ''}</em></div><p>${s.label}</p></div>`
+    : `<div class="stat fade"><div class="num" data-to="${s.value}" data-dec="${s.decimals || 0}" data-pre="${s.prefix || ''}">${s.prefix || ''}0<em>${s.suffix || ''}</em></div><p>${s.label}</p></div>`).join('');
+
+  // split headings into words
+  document.querySelectorAll('.split').forEach(h => {
+    const walk = node => [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(p => {
+          if (!p) return;
+          if (/^\s+$/.test(p)) return frag.append(p);
+          const w = document.createElement('span'); w.className = 'w';
+          const i = document.createElement('span'); i.textContent = p; w.append(i); frag.append(w);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1) walk(n);
+    });
+    walk(h);
+  });
+
+  // ---------- particle name ----------
+  const cv = document.getElementById('particles'), cx = cv.getContext('2d');
+  let W, H, P = [], mouse = { x: -9999, y: -9999 }, burst = 0;
+  function build() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const off = document.createElement('canvas'); off.width = W; off.height = H;
+    const o = off.getContext('2d');
+    const narrow = W < 700;
+    o.fillStyle = '#000'; o.textAlign = 'center'; o.textBaseline = 'middle';
+    o.font = '700 100px "Space Grotesk", sans-serif';
+    const fs = Math.min(100 * W * (narrow ? .9 : .78) / o.measureText('YASSINE').width, H * .3);
+    o.font = `700 ${fs}px "Space Grotesk", sans-serif`;
+    const cy = H * (narrow ? .42 : .45);
+    o.fillText('YASSINE', W / 2, cy - fs * .46);
+    o.font = `italic 400 ${fs * 1.08}px "Instrument Serif", serif`;
+    o.fillText('Derbel', W / 2, cy + fs * .5);
+    const data = o.getImageData(0, 0, W, H).data;
+    const gap = narrow ? 3 : Math.max(4, Math.round(W / 300));
+    const old = P; P = [];
+    for (let y = 0; y < H; y += gap) for (let x = 0; x < W; x += gap) {
+      if (data[(y * W + x) * 4 + 3] > 128) {
+        const prev = old[P.length];
+        P.push({ hx: x, hy: y, x: prev ? prev.x : Math.random() * W, y: prev ? prev.y : Math.random() * H, vx: 0, vy: 0, acc: y > cy, s: Math.random() * 1.4 + 1.4 });
+      }
+    }
+  }
+  cv.addEventListener('pointermove', e => { const b = cv.getBoundingClientRect(); mouse.x = e.clientX - b.left; mouse.y = e.clientY - b.top; });
+  cv.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
+  cv.addEventListener('click', e => {
+    const b = cv.getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top;
+    for (const p of P) { const dx = p.x - mx, dy = p.y - my, d = Math.hypot(dx, dy) + 1, f = Math.min(40, 2400 / d); p.vx += dx / d * f; p.vy += dy / d * f; }
+  });
+  let heroVisible = true;
+  new IntersectionObserver(([e]) => heroVisible = e.isIntersecting).observe(cv);
+  function frame() {
+    requestAnimationFrame(frame);
+    if (!heroVisible) return;
+    const ink = css('--ink'), acc = css('--acc'), R = W < 700 ? 60 : 110;
+    cx.clearRect(0, 0, W, H);
+    for (const p of P) {
+      const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+      if (d2 < R * R) { const d = Math.sqrt(d2) + .01, f = (R - d) / R * 6; p.vx += dx / d * f; p.vy += dy / d * f; }
+      p.vx += (p.hx - p.x) * .045; p.vy += (p.hy - p.y) * .045;
+      p.vx *= .82; p.vy *= .82;
+      p.x += p.vx; p.y += p.vy;
+    }
+    cx.fillStyle = ink;
+    for (const p of P) if (!p.acc) cx.fillRect(p.x, p.y, p.s, p.s);
+    cx.fillStyle = acc;
+    for (const p of P) if (p.acc) cx.fillRect(p.x, p.y, p.s, p.s);
+  }
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { build(); if (hasGsap) ScrollTrigger.refresh(); }, 200); });
+  document.fonts.ready.then(() => { build(); if (reduced) P.forEach(p => { p.x = p.hx; p.y = p.hy; }); frame(); });
+
+  // ---------- marquee ----------
+  const words = ['RAG systems', 'LLM agents', 'Small models', 'Computer vision', 'On-prem AI', 'Automation', 'Generative media', 'FastAPI'];
+  const mq = document.getElementById('mq');
+  mq.innerHTML = [...words, ...words].map(w => `<span>${w}</span>`).join('');
+  let mqX = 0, mqV = 0, mqDir = 1;
+
+  // ---------- panel visuals ----------
+  document.querySelectorAll('[data-cycle]').forEach(el => {
+    const kids = [...el.children]; let i = 0;
+    setInterval(() => { kids.forEach((k, j) => k.classList.toggle('on', j <= i)); i = (i + 1) % (kids.length + 2); }, 650);
+  });
+  document.querySelectorAll('[data-type]').forEach(el => {
+    const kids = [...el.children]; let i = 0;
+    kids.forEach(k => k.style.opacity = 0);
+    setInterval(() => { if (i === 0) kids.forEach(k => k.style.opacity = 0); if (kids[i]) kids[i].style.opacity = 1; i = (i + 1) % (kids.length + 3); }, 500);
+  });
+  const ring = document.getElementById('ring'), covn = document.getElementById('covn'), covs = [...document.querySelectorAll('#covs span')];
+  let cp = 0, ct = 0;
+  setInterval(() => {
+    ct += .045; cp = Math.max(0, Math.min(100, (Math.sin(ct) * .5 + .5) * 92 + (Math.random() - .5) * 3));
+    ring.style.setProperty('--p', cp.toFixed(1)); covn.textContent = Math.round(cp) + '%';
+    covs.forEach((s, i) => s.classList.toggle('on', i === (cp >= 60 ? 2 : cp >= 15 ? 1 : 0)));
+  }, 60);
+  const emo = [
+    ['happy', 'M36 62 Q50 74 64 62', 5], ['calm', 'M38 64 L62 64', 3.5], ['surprised', 'M44 64 Q50 56 56 64 Q50 72 44 64', 6.5], ['sad', 'M36 68 Q50 58 64 68', 4]
+  ];
+  const emos = [...document.querySelectorAll('#emos span')]; let ei = 0;
+  setInterval(() => {
+    const [, d, r] = emo[ei];
+    document.getElementById('mouth').setAttribute('d', d);
+    ['eyeL', 'eyeR'].forEach(id => document.getElementById(id).setAttribute('r', r));
+    emos.forEach((s, i) => s.classList.toggle('on', i === ei)); ei = (ei + 1) % emo.length;
+  }, 1400);
+
+  // ---------- cursor ----------
+  const dot = document.querySelector('.cur'), ringC = document.querySelector('.cur-ring'), label = ringC.querySelector('span');
+  if (fine && !reduced) {
+    let tx = innerWidth / 2, ty = innerHeight / 2, rx = tx, ry = ty;
+    addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; dot.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`; });
+    (function loop() { rx += (tx - rx) * .16; ry += (ty - ry) * .16; ringC.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(loop); })();
+    document.querySelectorAll('[data-cursor]').forEach(el => {
+      el.addEventListener('pointerenter', () => { label.textContent = el.dataset.cursor; ringC.classList.add('big'); });
+      el.addEventListener('pointerleave', () => ringC.classList.remove('big'));
+    });
+    document.querySelectorAll('a:not(.cover),button').forEach(el => {
+      el.addEventListener('pointerenter', () => ringC.classList.add('link'));
+      el.addEventListener('pointerleave', () => ringC.classList.remove('link'));
+    });
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('pointermove', e => { const b = el.getBoundingClientRect(); el.style.transform = `translate(${(e.clientX - b.left - b.width / 2) * .3}px,${(e.clientY - b.top - b.height / 2) * .4}px)`; });
+      el.addEventListener('pointerleave', () => { el.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1),color .35s'; el.style.transform = ''; setTimeout(() => el.style.transition = '', 500); });
+    });
+  }
+
+  // ---------- nav hide on scroll ----------
+  const nav = document.getElementById('nav'); let lastY = 0;
+  function onScroll(y, v) {
+    nav.classList.toggle('hide', y > 200 && y > lastY);
+    lastY = y;
+    if (v !== undefined) { mqV = v; if (v) mqDir = Math.sign(v); }
+  }
+
+  // ---------- chat ----------
+  const log = document.getElementById('log');
+  const kb = [
+    { k: ['rag', 'document', 'pdf', 'search', 'knowledge', 'docs', 'retriev'], tool: 'lookup("rag")', a: 'Yes — RAG is my core work. My end-of-studies project was Qualitest: an on-prem RAG assistant over a JavaScript test codebase (AST chunking, ChromaDB, Llama 3.2) that diagnoses failed tests in under 2 minutes. I handle ingestion, chunking, embeddings, retrieval, evaluation and the app around it.' },
+    { k: ['agent', 'tool', 'automat', 'workflow', 'n8n', 'process', 'robot'], tool: 'lookup("agents")', a: 'I build tool-calling agents where the LLM reasons and deterministic code does the maths — e.g. Mensura, which answers questions about CAD drawings and cites every number. I also automated Temenos T24 core-banking flows, including a SWIFT MT103 processing robot at BIAT.' },
+    { k: ['small', 'slm', 'on-prem', 'onprem', 'local', 'private', 'privacy', 'cost', 'cheap', 'ollama'], tool: 'lookup("slm")', a: 'Big fan of small models. At BIAT I led research showing SLMs can compete with LLMs on targeted enterprise tasks at a fraction of the compute, fully on-premise. If your data can\'t leave your servers, that\'s exactly my lane.' },
+    { k: ['vision', 'image', 'video', 'camera', 'yolo', 'detect', 'segment', 'webcam'], tool: 'lookup("vision")', a: 'Computer vision is where I started: YOLOv8 detection & segmentation, OpenCV pipelines and real-time webcam apps — like CareGenius, which measures foot-in-shoe coverage at pixel level to coach autistic children.' },
+    { k: ['stack', 'tech', 'language', 'framework', 'python', 'tools'], tool: 'lookup("stack")', a: 'Python (LangChain, Hugging Face, PyTorch, FastAPI), JavaScript/Node, PostgreSQL, ChromaDB/pgvector, Ollama, Docker, GitLab & Jenkins. Models: Claude, GPT, Gemini, Llama and small open models.' },
+    { k: ['hire', 'available', 'freelance', 'contact', 'price', 'rate', 'work with', 'start', 'upwork', 'email'], tool: 'lookup("availability")', a: 'I\'m freelancing full-time and available now — from a quick proof of concept to a production build. Hire me on Upwork or email me (buttons at the bottom of the page).' },
+    { k: ['award', 'hackathon', 'beemo', 'win', 'prize'], tool: 'lookup("awards")', a: 'Beemo, an autism-aid robot, won 1st place in Africa at the Africa to Silicon Valley Hackathon and was named ESPRIT\'s Best AI Project.' },
+    { k: ['experience', 'background', 'education', 'degree', 'who', 'about', 'bank'], tool: 'lookup("about")', a: 'AI engineering degree from ESPRIT (2025). Then NeoXam (RAG for QA), then VALUE Digital Services on mission at BIAT (core-banking automation + SLM research). Now freelancing full-time.' },
+  ];
+  function add(text, who, tool) {
+    const m = document.createElement('div'); m.className = 'msg ' + who;
+    if (tool) { const t = document.createElement('span'); t.className = 'tool'; t.textContent = '⚙ ' + tool; m.append(t); }
+    m.append(document.createTextNode(text)); log.append(m); log.scrollTop = log.scrollHeight; return m;
+  }
+  function answer(q) {
+    add(q, 'me');
+    const s = q.toLowerCase();
+    const hit = kb.map(e => ({ e, n: e.k.filter(k => s.includes(k)).length })).sort((a, b) => b.n - a.n)[0];
+    const typing = add('thinking…', 'bot typing');
+    setTimeout(() => { typing.remove(); hit.n ? add(hit.e.a, 'bot', hit.e.tool) : add('Good question — that one\'s better answered by the human. Reach out on Upwork or by email and I\'ll get back to you.', 'bot', 'route("human")'); }, 650);
+  }
+  add('Hi! I know Yassine\'s work. Ask about RAG, agents, small models, vision, stack or availability.', 'bot');
+  const chips = ['Can you build a RAG system?', 'Do you work with small / on-prem models?', 'Do you do computer vision?', 'Are you available?'];
+  document.getElementById('chips').innerHTML = chips.map(c => `<button type="button">${c}</button>`).join('');
+  document.querySelectorAll('#chips button').forEach(b => b.onclick = () => answer(b.textContent));
+  document.getElementById('ask').onsubmit = e => { e.preventDefault(); const q = document.getElementById('q'); if (q.value.trim()) { answer(q.value.trim()); q.value = ''; } };
+
+  // ---------- counters ----------
+  function count(num) {
+    const to = +num.dataset.to, dec = +num.dataset.dec, pre = num.dataset.pre || '', em = num.querySelector('em').outerHTML, t0 = performance.now();
+    (function tick(t) { const p = Math.min(1, (t - t0) / 1600), v = to * (1 - Math.pow(1 - p, 4)); num.innerHTML = pre + v.toFixed(dec) + em; if (p < 1) requestAnimationFrame(tick); })(t0);
+  }
+
+  // ---------- loader ----------
+  const loader = document.getElementById('loader'), cnt = document.getElementById('cnt');
+
+  if (!hasGsap || reduced) {
+    loader.remove();
+    document.querySelectorAll('.num').forEach(count);
+    addEventListener('scroll', () => onScroll(scrollY));
+    (function m() { mqX -= 0.6; if (-mqX > mq.scrollWidth / 2) mqX = 0; mq.style.transform = `translateX(${mqX}px)`; if (!reduced) requestAnimationFrame(m); })();
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  const lenis = window.Lenis ? new Lenis({ lerp: .09, smoothWheel: true }) : null;
+  if (lenis) {
+    lenis.on('scroll', e => { ScrollTrigger.update(); onScroll(e.scroll, e.velocity); });
+    gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+    lenis.stop();
+  } else addEventListener('scroll', () => onScroll(scrollY));
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const id = a.getAttribute('href'); if (id.length < 2 || a.id === 'mail') return;
+    const t = document.querySelector(id); if (!t) return;
+    e.preventDefault(); lenis ? lenis.scrollTo(t, { duration: 1.6 }) : t.scrollIntoView({ behavior: 'smooth' });
+  }));
+
+  // marquee driven by scroll velocity
+  gsap.ticker.add(() => {
+    const speed = (0.7 + Math.min(Math.abs(mqV), 60) * .25) * mqDir;
+    mqX -= speed; const half = mq.scrollWidth / 2;
+    if (mqX <= -half) mqX += half; if (mqX > 0) mqX -= half;
+    mq.style.transform = `translateX(${mqX}px)`;
+    mqV *= .92;
+  });
+
+  // intro
+  const o = { v: 0 };
+  gsap.timeline()
+    .to(o, { v: 100, duration: 1.3, ease: 'power2.inOut', onUpdate: () => cnt.textContent = Math.round(o.v) })
+    .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1, ease: 'expo.inOut' })
+    .from('.hero-ui > *, .hero-top > *', { y: 40, opacity: 0, stagger: .08, duration: 1, ease: 'expo.out' }, '-=.5')
+    .add(() => { loader.remove(); lenis && lenis.start(); });
+
+  // hero canvas fades/scales on scroll
+  gsap.to('#particles', { scale: .85, opacity: .15, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+  // headings
+  document.querySelectorAll('.split').forEach(h => gsap.from(h.querySelectorAll('.w > span'), {
+    yPercent: 110, rotate: 4, duration: 1.1, ease: 'expo.out', stagger: .06,
+    scrollTrigger: { trigger: h, start: 'top 85%' }
+  }));
+  document.querySelectorAll('.fade').forEach(el => gsap.from(el, {
+    y: 50, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' }
+  }));
+  gsap.utils.toArray('.svc div').forEach((d, i) => gsap.from(d, { x: 40, opacity: 0, duration: .9, delay: i * .07, ease: 'expo.out', scrollTrigger: { trigger: '.svc', start: 'top 80%' } }));
+
+  // horizontal work gallery
+  const track = document.getElementById('htrack');
+  ScrollTrigger.matchMedia({
+    '(min-width: 901px)': () => {
+      const dist = () => track.scrollWidth - innerWidth;
+      const tween = gsap.to(track, {
+        x: () => -dist(), ease: 'none',
+        scrollTrigger: { trigger: '.hwrap', start: 'center center', end: () => '+=' + dist(), pin: '#work', scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
+      });
+      gsap.utils.toArray('.panel').forEach(p => {
+        gsap.fromTo(p, { rotate: 3, scale: .92 }, { rotate: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left right', end: 'left 35%', scrub: true } });
+        gsap.from(p.querySelectorAll('h3, .one, li, .viz, .metric'), { y: 30, opacity: 0, stagger: .05, duration: .8, ease: 'expo.out', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left 70%' } });
+      });
+    },
+    '(max-width: 900px)': () => {
+      gsap.utils.toArray('.panel').forEach(p => gsap.from(p, { y: 70, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: p, start: 'top 90%' } }));
+    }
+  });
+
+  // tilt panels toward cursor
+  if (fine) document.querySelectorAll('.panel').forEach(p => {
+    p.addEventListener('pointermove', e => { const b = p.getBoundingClientRect(); gsap.to(p, { rotateY: ((e.clientX - b.left) / b.width - .5) * 5, rotateX: -((e.clientY - b.top) / b.height - .5) * 5, transformPerspective: 1200, duration: .6 }); });
+    p.addEventListener('pointerleave', () => gsap.to(p, { rotateY: 0, rotateX: 0, duration: .8, ease: 'expo.out' }));
+  });
+
+  // stats
+  document.querySelectorAll('.num').forEach(n => ScrollTrigger.create({ trigger: n, start: 'top 85%', once: true, onEnter: () => count(n) }));
+
+  // experience rail
+  gsap.fromTo('#railFill', { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '#xp', start: 'top 70%', end: 'bottom 60%', scrub: true } });
+
+  // contact headline grows in
+  gsap.fromTo('#huge', { scale: .6, opacity: .2 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: '.contact', start: 'top bottom', end: 'top 25%', scrub: true } });
+
+  document.fonts.ready.then(() => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
