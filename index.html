@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yassine Derbel — AI Engineer</title>
 <meta name="description" content="Yassine Derbel — freelance AI engineer building RAG systems, LLM agents, small language models and computer-vision products.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -58,8 +59,10 @@ body::after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;
 /* nav */
 nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 nav.hide{transform:translateY(-110%)}
-nav .logo{font-weight:700;letter-spacing:-.02em;font-size:18px}
-nav .logo span{color:var(--acc)}
+nav .logo{display:block;color:var(--ink)}
+nav .logo svg{height:26px;width:auto;display:block;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+nav .logo:hover svg{transform:scale(1.08) rotate(-3deg)}
+footer .flogo svg{height:16px;width:auto;display:inline-block;vertical-align:-3px;color:var(--ink);margin-right:10px}
 nav .links{display:flex;gap:6px;align-items:center;padding:6px;border:1px solid var(--line);border-radius:99px;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(12px)}
 nav .links a{font-size:14px;padding:7px 14px;border-radius:99px;color:var(--mute);transition:color .2s,background .2s}
 nav .links a:hover{color:var(--ink);background:var(--bg2)}
@@ -255,7 +258,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 <div class="cur" aria-hidden="true"></div><div class="cur-ring" aria-hidden="true"><span>VIEW</span></div>
 
 <nav id="nav">
-  <a href="#top" class="logo" data-link>yassine<span>.</span>derbel</a>
+  <a href="#top" class="logo" data-link aria-label="Yassine Derbel — back to top"><svg viewBox="0 0 25.4 14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h2v1h-2zM8 0h2v1h-2zM0 1h2v1h-2zM8 1h2v1h-2zM0 2h2v1h-2zM8 2h2v1h-2zM0 3h2v1h-2zM8 3h2v1h-2zM0 4h2v1h-2zM8 4h2v1h-2zM0 5h3v1h-3zM7 5h3v1h-3zM1 6h3v1h-3zM6 6h3v1h-3zM2 7h6v1h-6zM3 8h4v1h-4zM4 9h2v1h-2zM4 10h2v1h-2zM4 11h2v1h-2zM4 12h2v1h-2zM4 13h2v1h-2zM12 0h8v1h-8zM12 1h9v1h-9zM12 12h9v1h-9zM12 13h8v1h-8zM12 2h10v1h-10zM12 3h10v1h-10zM12 4h10v1h-10zM12 5h10v1h-10zM12 6h10v1h-10zM12 7h10v1h-10zM12 8h10v1h-10zM12 9h10v1h-10zM12 10h10v1h-10zM12 11h10v1h-10z"/><circle cx="23.88" cy="12.9" r="1.32" fill="#ff8c00" shape-rendering="geometricPrecision"/></svg></a>
   <div class="links">
     <a class="opt" href="#work" data-link>Work</a>
     <a class="opt" href="#experience" data-link>Experience</a>
@@ -508,7 +511,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
   </div>
 </section>
 
-<footer class="mono"><span>© <span id="yr"></span> Yassine Derbel</span><span>Built by hand · no templates</span><span>Tunis, Tunisia</span></footer>
+<footer class="mono"><span><span class="flogo"><svg viewBox="0 0 25.4 14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h2v1h-2zM8 0h2v1h-2zM0 1h2v1h-2zM8 1h2v1h-2zM0 2h2v1h-2zM8 2h2v1h-2zM0 3h2v1h-2zM8 3h2v1h-2zM0 4h2v1h-2zM8 4h2v1h-2zM0 5h3v1h-3zM7 5h3v1h-3zM1 6h3v1h-3zM6 6h3v1h-3zM2 7h6v1h-6zM3 8h4v1h-4zM4 9h2v1h-2zM4 10h2v1h-2zM4 11h2v1h-2zM4 12h2v1h-2zM4 13h2v1h-2zM12 0h8v1h-8zM12 1h9v1h-9zM12 12h9v1h-9zM12 13h8v1h-8zM12 2h10v1h-10zM12 3h10v1h-10zM12 4h10v1h-10zM12 5h10v1h-10zM12 6h10v1h-10zM12 7h10v1h-10zM12 8h10v1h-10zM12 9h10v1h-10zM12 10h10v1h-10zM12 11h10v1h-10z"/><circle cx="23.88" cy="12.9" r="1.32" fill="#ff8c00" shape-rendering="geometricPrecision"/></svg></span>© <span id="yr"></span> Yassine Derbel</span><span>Built by hand · no templates</span><span>Tunis, Tunisia</span></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -571,6 +574,7 @@ const UPWORK = [
   function build() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight;
+    if (!W || !H) return;
     cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const off = document.createElement('canvas'); off.width = W; off.height = H;
     const o = off.getContext('2d');
